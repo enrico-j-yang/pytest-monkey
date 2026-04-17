@@ -6,3 +6,7 @@ report
 build
 .idea
 .worktrees
+tests/
+pytest.ini
+audio/
+docs/superpowers
