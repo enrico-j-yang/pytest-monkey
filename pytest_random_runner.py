@@ -34,6 +34,12 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         default=False,
         help="Continue execution on test failure (default: stop on first failure)"
     )
+    group.addoption(
+        "--random-no-capture",
+        action="store_true",
+        default=False,
+        help="Disable output capture (show stdout/stderr during test execution)"
+    )
 
 
 def pytest_collection_modifyitems(
@@ -52,6 +58,7 @@ def pytest_collection_modifyitems(
 
     random_seed = config.getoption("--random-seed")
     continue_on_fail = config.getoption("--random-continue-on-fail")
+    no_capture = config.getoption("--random-no-capture")
 
     # Get test spec from collected items
     # Use the first item's nodeid to get the test spec
@@ -71,7 +78,8 @@ def pytest_collection_modifyitems(
         seed=random_seed,
         continue_on_fail=continue_on_fail,
         report_dir="./reports",
-        verbose=config.getoption("-v") or config.getoption("--verbose")
+        verbose=config.getoption("-v") or config.getoption("--verbose"),
+        capture_output=not no_capture
     )
 
     # Execute the runner
