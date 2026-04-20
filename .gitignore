@@ -10,3 +10,4 @@ audio/
 docs/superpowers
 *.pyc
 .venv
+reports/

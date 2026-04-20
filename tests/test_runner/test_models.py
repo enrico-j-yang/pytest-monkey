@@ -1,7 +1,5 @@
 """测试数据结构定义"""
-import pytest
 from runner.models import TestResult, RunReport
-from datetime import datetime
 
 class TestTestResult:
     """测试TestResult数据结构"""

@@ -1,7 +1,5 @@
 """测试ResultReporter结果报告器"""
 import json
-import pytest
-from pathlib import Path
 from runner.models import TestResult
 from runner.reporter import ResultReporter
 

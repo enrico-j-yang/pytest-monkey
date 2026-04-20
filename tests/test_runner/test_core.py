@@ -2,7 +2,6 @@
 import pytest
 from pathlib import Path
 import tempfile
-import os
 
 from runner.core import RunnerCore
 
@@ -103,7 +102,7 @@ class TestRunnerCore:
             verbose=False
         )
 
-        exit_code = runner.run()
+        _exit_code = runner.run()
 
         # Verify total runs
         assert runner.reporter.report is not None
@@ -173,7 +172,7 @@ class TestRunnerCore:
                 verbose=False
             )
 
-            exit_code = runner.run()
+            _exit_code = runner.run()
 
             # Check that JSON report was created
             json_report = Path(tmpdir) / "report.json"
@@ -206,7 +205,7 @@ class TestRunnerCore:
             verbose=True
         )
 
-        exit_code = runner.run()
+        _exit_code = runner.run()
 
         # Should still work correctly
         assert runner.reporter.report is not None
