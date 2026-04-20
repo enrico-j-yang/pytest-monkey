@@ -112,12 +112,12 @@ class TestTestCollector:
     def test_validate_path_exists(self, collector, sample_tests_path):
         """Test _validate_path with existing path"""
         # Should not raise any exception
-        collector._validate_path(sample_tests_path)
+        collector._validate_path(sample_tests_path)  # pylint: disable=protected-access
 
     def test_validate_path_not_exists(self, collector):
         """Test _validate_path with non-existing path"""
         with pytest.raises(ValueError, match="Path does not exist"):
-            collector._validate_path("tests/nonexistent_test.py")
+            collector._validate_path("tests/nonexistent_test.py")  # pylint: disable=protected-access
 
     def test_collect_from_directory(self, collector):
         """Test collecting all tests from a directory"""

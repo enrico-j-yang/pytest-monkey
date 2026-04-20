@@ -88,16 +88,16 @@ def pytest_collection_modifyitems(
     # Clear items to prevent pytest from running them again
     items.clear()
 
-    # Store exit code in config for later use
+    # Store exit code in config for later use  # pylint: disable=protected-access
     config._random_runner_exit_code = exit_code
 
 
 def pytest_sessionfinish(
     session: pytest.Session,
-    exitstatus: int
+    _exitstatus: int
 ) -> None:
     """Set the final exit status after session ends."""
     config = session.config
-    if hasattr(config, "_random_runner_exit_code"):
+    if hasattr(config, "_random_runner_exit_code"):  # pylint: disable=protected-access
         # Use the exit code from our random runner
-        session.exitstatus = config._random_runner_exit_code
+        session.exitstatus = config._random_runner_exit_code  # pylint: disable=protected-access

@@ -1,5 +1,4 @@
 """测试RandomSelector随机选择器"""
-import pytest
 from runner.selector import RandomSelector
 
 

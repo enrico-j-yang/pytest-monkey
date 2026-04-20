@@ -1,5 +1,4 @@
 """用于测试随机运行器的示例测试用例"""
-import pytest
 
 def test_sample_pass_1():
     """一个通过的测试"""

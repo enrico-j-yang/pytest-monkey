@@ -1,5 +1,4 @@
 """TestCollector - pytest test item collector"""
-import os
 import sys
 from io import StringIO
 from pathlib import Path
@@ -81,12 +80,12 @@ class TestCollector:
 
         class CollectionPlugin:
             """Plugin to capture collected items"""
-            def pytest_collection_modifyitems(self, config, items):
+            def pytest_collection_modifyitems(self, _config, items):
                 collected_items.extend(items)
 
         try:
             # Run pytest with our plugin to capture items
-            exit_code = pytest.main(
+            pytest.main(
                 args,
                 plugins=[CollectionPlugin()]
             )
