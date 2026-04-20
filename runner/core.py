@@ -103,6 +103,9 @@ class RunnerCore:
         # Initialize report
         self.reporter.init_report(seed=self.seed, total_count=self.count)
 
+        # Print seed at start for reproducibility
+        print(f"Random seed: {self.seed}")
+
         # Select random test sequence
         selected_tests = self.selector.select(items, self.count)
 
@@ -150,10 +153,7 @@ class RunnerCore:
         self.reporter.save_html(str(html_path))
 
         # Print summary
-        if self.verbose:
-            print("\n" + "=" * 60)
-            print(self.reporter.get_summary_string())
-            print("=" * 60)
+        print(self.reporter.get_summary_string())
 
         # Return exit code
         if self.reporter.report.failed_count > 0:
