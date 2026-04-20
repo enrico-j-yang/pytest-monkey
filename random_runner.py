@@ -13,11 +13,10 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s tests/                    # Run tests from directory
-  %(prog)s tests/test_file.py        # Run tests from file
-  %(prog)s tests/test_file.py::test_name  # Run specific test
-  %(prog)s tests/ --count 5 --seed 42     # 5 runs with seed 42
-  %(prog)s tests/ --stop-on-fail -v      # Stop on failure, verbose
+  %(prog)s tests/ --count 100                    # Run 100 random tests from directory
+  %(prog)s tests/test_file.py --count 50         # Run 50 random tests from file
+  %(prog)s tests/test_file.py::test_name --count 20 --seed 42  # 20 runs with seed 42
+  %(prog)s tests/ --count 100 --continue-on-fail -v  # Continue on failure, verbose
         """
     )
 
@@ -29,21 +28,21 @@ Examples:
     parser.add_argument(
         "--count",
         type=int,
-        default=10,
-        help="Number of test runs to execute (default: 10)"
+        required=True,
+        help="Number of test runs to execute (required)"
     )
 
     parser.add_argument(
         "--seed",
         type=int,
         default=None,
-        help="Random seed for reproducibility (default: auto-generated)"
+        help="Random seed for reproducibility (default: auto-generated 10-digit number)"
     )
 
     parser.add_argument(
-        "--stop-on-fail",
+        "--continue-on-fail",
         action="store_true",
-        help="Stop execution on first test failure"
+        help="Continue execution on test failure (default: stop on first failure)"
     )
 
     parser.add_argument(
@@ -70,7 +69,7 @@ def main() -> int:
             test_spec=args.test_spec,
             count=args.count,
             seed=args.seed,
-            stop_on_fail=args.stop_on_fail,
+            continue_on_fail=args.continue_on_fail,
             report_dir=args.report_dir,
             verbose=args.verbose
         )

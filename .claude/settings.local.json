@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git worktree *)",
+      "Bash(pytest tests/test_runner/test_models.py -v)",
+      "Bash(python -m pytest tests/test_runner/test_models.py -v)",
+      "Bash(pip install *)",
+      "Bash(\"C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\python.exe\" -m pytest tests/test_runner/test_models.py -v)",
+      "Bash(pip show *)",
+      "Bash(python -m pytest tests/test_runner/test_collector.py -v)",
+      "Bash(C:/Users/Administrator/AppData/Local/Programs/Python/Python312/python.exe -m pytest tests/test_runner/test_collector.py -v)",
+      "Bash(pytest *)",
+      "Bash(python -m pytest tests/test_runner/test_executor.py -v)",
+      "Bash(python *)",
+      "Bash(pdm install *)",
+      "Bash(.venv/Scripts/python.exe -m pytest --random-runner --random-count 3 tests/test_runner/sample_tests.py::test_sample_pass_1 -v)",
+      "Bash(.venv/Scripts/python.exe -m pip install -e .)"
+    ]
+  }
+}

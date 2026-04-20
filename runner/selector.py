@@ -13,11 +13,11 @@ class RandomSelector:
         初始化随机选择器
 
         Args:
-            seed: 随机种子，如果为None则自动生成
+            seed: 随机种子，如果为None则自动生成10位数字
         """
         if seed is None:
-            # 自动生成种子
-            self.seed = random.randint(0, 2**32 - 1)
+            # 自动生成10位数字种子
+            self.seed = random.randint(1000000000, 9999999999)
         else:
             self.seed = seed
         self.rng = random.Random(self.seed)
