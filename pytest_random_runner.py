@@ -19,14 +19,20 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     group.addoption(
         "--random-count",
         type=int,
-        default=10,
-        help="Number of test runs to execute (default: 10)"
+        default=None,
+        help="Number of test runs to execute (required when --random-runner is enabled)"
     )
     group.addoption(
         "--random-seed",
         type=int,
         default=None,
-        help="Random seed for reproducibility (default: auto-generated)"
+        help="Random seed for reproducibility (default: auto-generated 10-digit number)"
+    )
+    group.addoption(
+        "--random-continue-on-fail",
+        action="store_true",
+        default=False,
+        help="Continue execution on test failure (default: stop on first failure)"
     )
 
 
@@ -41,7 +47,11 @@ def pytest_collection_modifyitems(
 
     # Get options
     random_count = config.getoption("--random-count")
+    if random_count is None:
+        raise pytest.UsageError("--random-count is required when using --random-runner")
+
     random_seed = config.getoption("--random-seed")
+    continue_on_fail = config.getoption("--random-continue-on-fail")
 
     # Get test spec from collected items
     # Use the first item's nodeid to get the test spec
@@ -59,6 +69,7 @@ def pytest_collection_modifyitems(
         test_spec=test_spec,
         count=random_count,
         seed=random_seed,
+        continue_on_fail=continue_on_fail,
         report_dir="./reports",
         verbose=config.getoption("-v") or config.getoption("--verbose")
     )

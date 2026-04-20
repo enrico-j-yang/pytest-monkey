@@ -26,8 +26,11 @@ license = {text = "MIT"}
 [project.entry-points.pytest11]
 random_runner = "pytest_random_runner"
 
+[tool.setuptools]
+py-modules = ["pytest_random_runner", "random_runner"]
+
 [tool.setuptools.packages.find]
-include = ["runner*", "pytest_random_runner*"]
+include = ["runner*"]
 
 [tool.pdm]
 distribution = true

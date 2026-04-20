@@ -1,0 +1,2 @@
+[pytest11]
+random_runner = pytest_random_runner

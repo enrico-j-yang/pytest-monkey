@@ -19,7 +19,7 @@ class TestRunnerCore:
             test_spec=str(sample_tests),
             count=5,
             seed=42,
-            stop_on_fail=False,
+            continue_on_fail=True,
             report_dir="./reports",
             verbose=False
         )
@@ -39,16 +39,16 @@ class TestRunnerCore:
         assert len(runner.reporter.report.results) == 5
 
     def test_run_with_failure_stop(self):
-        """Test that stop_on_fail=True stops execution on first failure"""
+        """Test that continue_on_fail=False stops execution on first failure"""
         sample_tests = Path(__file__).parent / "sample_tests.py"
 
-        # Create runner with stop_on_fail=True and select many tests
+        # Create runner with continue_on_fail=False and select many tests
         # Use a seed that we know will eventually hit a failing test
         runner = RunnerCore(
             test_spec=str(sample_tests),
             count=100,  # High count to ensure we hit a failure
             seed=42,
-            stop_on_fail=True,
+            continue_on_fail=False,
             report_dir="./reports",
             verbose=False
         )
@@ -66,14 +66,14 @@ class TestRunnerCore:
             assert len(runner.reporter.report.results) < 100
 
     def test_run_with_failure_continue(self):
-        """Test that stop_on_fail=False continues execution on failures"""
+        """Test that continue_on_fail=True continues execution on failures"""
         sample_tests = Path(__file__).parent / "sample_tests.py"
 
         runner = RunnerCore(
             test_spec=str(sample_tests),
             count=5,
             seed=123,  # Use a seed that produces failures
-            stop_on_fail=False,
+            continue_on_fail=True,
             report_dir="./reports",
             verbose=False
         )
@@ -98,7 +98,7 @@ class TestRunnerCore:
             test_spec=str(sample_tests),
             count=20,
             seed=42,
-            stop_on_fail=False,
+            continue_on_fail=True,
             report_dir="./reports",
             verbose=False
         )
@@ -123,7 +123,7 @@ class TestRunnerCore:
             test_spec=str(sample_tests),
             count=5,
             seed=42,
-            stop_on_fail=False,
+            continue_on_fail=True,
             report_dir="./reports",
             verbose=False
         )
@@ -134,7 +134,7 @@ class TestRunnerCore:
             test_spec=str(sample_tests),
             count=5,
             seed=42,
-            stop_on_fail=False,
+            continue_on_fail=True,
             report_dir="./reports",
             verbose=False
         )
@@ -168,7 +168,7 @@ class TestRunnerCore:
                 test_spec=str(sample_tests),
                 count=3,
                 seed=42,
-                stop_on_fail=False,
+                continue_on_fail=True,
                 report_dir=tmpdir,
                 verbose=False
             )
@@ -201,7 +201,7 @@ class TestRunnerCore:
             test_spec=str(sample_tests),
             count=2,
             seed=42,
-            stop_on_fail=False,
+            continue_on_fail=True,
             report_dir="./reports",
             verbose=True
         )
@@ -213,19 +213,20 @@ class TestRunnerCore:
         assert len(runner.reporter.report.results) == 2
 
     def test_default_seed_generation(self):
-        """Test that seed is auto-generated when None"""
+        """Test that seed is auto-generated as 10-digit number when None"""
         sample_tests = Path(__file__).parent / "sample_tests.py"
 
         runner = RunnerCore(
             test_spec=str(sample_tests),
             count=2,
             seed=None,  # Should auto-generate
-            stop_on_fail=False,
+            continue_on_fail=True,
             report_dir="./reports",
             verbose=False
         )
 
-        # Should have a valid seed
+        # Should have a valid 10-digit seed
         assert runner.seed is not None
         assert isinstance(runner.seed, int)
-        assert runner.seed >= 0
+        assert runner.seed >= 1000000000  # Minimum 10-digit number
+        assert runner.seed <= 9999999999  # Maximum 10-digit number

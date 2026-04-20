@@ -25,9 +25,9 @@ class RunnerCore:
     def __init__(
         self,
         test_spec: str,
-        count: int = 10,
+        count: int,
         seed: Optional[int] = None,
-        stop_on_fail: bool = False,
+        continue_on_fail: bool = False,
         report_dir: str = "./reports",
         verbose: bool = False
     ):
@@ -35,9 +35,9 @@ class RunnerCore:
 
         Args:
             test_spec: Test specification (file/class/method/directory path)
-            count: Number of test runs to execute
-            seed: Random seed for reproducibility. If None, auto-generates one.
-            stop_on_fail: Whether to stop on first failure
+            count: Number of test runs to execute (required)
+            seed: Random seed for reproducibility. If None, auto-generates 10-digit number.
+            continue_on_fail: Whether to continue on failure (default: stop on first failure)
             report_dir: Directory to save reports
             verbose: Whether to print verbose output
 
@@ -46,13 +46,13 @@ class RunnerCore:
         """
         self.test_spec = test_spec
         self.count = count
-        self.stop_on_fail = stop_on_fail
+        self.continue_on_fail = continue_on_fail
         self.report_dir = Path(report_dir)
         self.verbose = verbose
 
-        # Generate or use provided seed
+        # Generate or use provided seed (10-digit number if auto-generated)
         if seed is None:
-            self.seed = random.randint(0, 2**32 - 1)
+            self.seed = random.randint(1000000000, 9999999999)
         else:
             self.seed = seed
 
@@ -133,8 +133,8 @@ class RunnerCore:
                     if result.error_msg:
                         print(f"    Error: {result.error_msg[:200]}")
 
-                # Stop on failure if configured
-                if self.stop_on_fail and not result.passed:
+                # Stop on failure unless continue_on_fail is set
+                if not self.continue_on_fail and not result.passed:
                     if self.verbose:
                         print(f"\nStopping on first failure (run {run_index}/{self.count})")
                     break
