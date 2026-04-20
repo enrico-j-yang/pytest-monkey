@@ -23,6 +23,11 @@ requires-python = "==3.12.*"
 readme = "README.md"
 license = {text = "MIT"}
 
+[project.entry-points.pytest11]
+random_runner = "pytest_random_runner"
+
+[tool.setuptools.packages.find]
+include = ["runner*", "pytest_random_runner*"]
 
 [tool.pdm]
-distribution = false
+distribution = true
