@@ -1,3 +1,0 @@
-pytest_random_runner
-random_runner
-runner

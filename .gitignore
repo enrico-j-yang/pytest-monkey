@@ -9,5 +9,8 @@ build
 audio/
 docs/superpowers
 *.pyc
+*.egg-info
+*.egg
 .venv
 reports/
+dist/
