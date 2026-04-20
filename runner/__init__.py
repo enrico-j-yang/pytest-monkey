@@ -4,9 +4,7 @@ from .collector import TestCollector
 from .selector import RandomSelector
 from .executor import TestExecutor
 from .reporter import ResultReporter
-
-# Future imports (modules to be implemented in subsequent tasks)
-# from .core import RunnerCore
+from .core import RunnerCore
 
 __all__ = [
     'TestResult',
@@ -15,5 +13,5 @@ __all__ = [
     'RandomSelector',
     'TestExecutor',
     'ResultReporter',
-    # Additional exports will be added when modules are implemented
+    'RunnerCore',
 ]
