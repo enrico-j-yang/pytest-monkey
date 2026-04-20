@@ -14,7 +14,3 @@ runner/executor.py
 runner/models.py
 runner/reporter.py
 runner/selector.py
-tests/test_audio_formats.py
-tests/test_vpr_debug.py
-tests/test_vpr_simple.py
-tests/test_websocket_asr_api.py

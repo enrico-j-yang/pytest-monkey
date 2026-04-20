@@ -57,6 +57,12 @@ Examples:
         help="Enable verbose output"
     )
 
+    parser.add_argument(
+        "-s", "--no-capture",
+        action="store_true",
+        help="Disable output capture (show stdout/stderr during test execution, like pytest -s)"
+    )
+
     return parser.parse_args()
 
 
@@ -71,7 +77,8 @@ def main() -> int:
             seed=args.seed,
             continue_on_fail=args.continue_on_fail,
             report_dir=args.report_dir,
-            verbose=args.verbose
+            verbose=args.verbose,
+            capture_output=not args.no_capture
         )
 
         exit_code = runner.run()

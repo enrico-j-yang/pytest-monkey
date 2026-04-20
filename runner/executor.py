@@ -35,6 +35,15 @@ class _ExecutionPlugin:
 class TestExecutor:
     """Execute pytest test items and return TestResult objects"""
 
+    def __init__(self, capture_output: bool = True):
+        """Initialize executor.
+
+        Args:
+            capture_output: Whether to capture stdout/stderr during test execution.
+                           Set False for -s mode (show output).
+        """
+        self.capture_output = capture_output
+
     def execute(self, item: pytest.Item) -> TestResult:
         """
         Execute a single pytest test item.
@@ -54,23 +63,26 @@ class TestExecutor:
         # Create plugin to capture result
         plugin = _ExecutionPlugin()
 
-        # Suppress output during execution
-        old_stdout = sys.stdout
-        old_stderr = sys.stderr
-        sys.stdout = StringIO()
-        sys.stderr = StringIO()
+        # Suppress output only if capture_output is True
+        if self.capture_output:
+            old_stdout = sys.stdout
+            old_stderr = sys.stderr
+            sys.stdout = StringIO()
+            sys.stderr = StringIO()
 
         try:
             # Run the test using pytest.main with the item's nodeid
             # This ensures proper pytest session context for execution
+            pytest_args = ['-v', '--tb=short', item.nodeid]
             pytest.main(
-                ['-v', '--tb=no', item.nodeid],
+                pytest_args,
                 plugins=[plugin]
             )
         finally:
-            # Restore stdout/stderr
-            sys.stdout = old_stdout
-            sys.stderr = old_stderr
+            # Restore stdout/stderr only if we captured them
+            if self.capture_output:
+                sys.stdout = old_stdout
+                sys.stderr = old_stderr
 
         # Return the captured result
         if plugin.result:

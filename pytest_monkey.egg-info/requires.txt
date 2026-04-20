@@ -1,8 +1,4 @@
-requests~=2.32.3
-websocket-client~=1.6.1
-xlrd~=2.0.1
 tqdm~=4.67.1
-xlutils~=2.0.0
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
 pytest-mock>=3.11.0

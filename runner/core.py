@@ -29,7 +29,8 @@ class RunnerCore:
         seed: Optional[int] = None,
         continue_on_fail: bool = False,
         report_dir: str = "./reports",
-        verbose: bool = False
+        verbose: bool = False,
+        capture_output: bool = True
     ):
         """Initialize the runner core.
 
@@ -40,6 +41,7 @@ class RunnerCore:
             continue_on_fail: Whether to continue on failure (default: stop on first failure)
             report_dir: Directory to save reports
             verbose: Whether to print verbose output
+            capture_output: Whether to capture stdout/stderr (False for -s mode)
 
         Raises:
             ValueError: If test_spec path does not exist
@@ -49,6 +51,7 @@ class RunnerCore:
         self.continue_on_fail = continue_on_fail
         self.report_dir = Path(report_dir)
         self.verbose = verbose
+        self.capture_output = capture_output
 
         # Generate or use provided seed (10-digit number if auto-generated)
         if seed is None:
@@ -59,7 +62,7 @@ class RunnerCore:
         # Initialize components
         self.collector = TestCollector()
         self.selector = RandomSelector(seed=self.seed)
-        self.executor = TestExecutor()
+        self.executor = TestExecutor(capture_output=capture_output)
         self.reporter = ResultReporter()
 
         # Validate test spec path exists
@@ -112,8 +115,8 @@ class RunnerCore:
         # Ensure report directory exists
         self.report_dir.mkdir(parents=True, exist_ok=True)
 
-        # Execute tests with progress bar
-        disable_progress = self.verbose  # Disable tqdm if verbose for cleaner output
+        # Disable progress bar when not capturing output (output will interleave)
+        disable_progress = self.verbose or not self.capture_output
 
         with tqdm(total=self.count, desc="Running tests", disable=disable_progress) as pbar:
             for run_index, item in enumerate(selected_tests, start=1):
