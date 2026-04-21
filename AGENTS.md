@@ -28,7 +28,7 @@ pytest-monkey/
 │   ├── executor.py      # TestExecutor - executes single tests
 │   ├── reporter.py      # ResultReporter - generates reports
 │   └── models.py        # Data models (TestResult, RunReport)
-├── pytest_random_runner.py  # pytest plugin entry
+├── pytest_monkey.py          # pytest plugin entry
 ├── random_runner.py         # CLI entry
 ├── tests/                   # Test directory
 └── reports/                 # Report output directory (generated at runtime)
@@ -77,7 +77,7 @@ When modifying any component, ensure interface compatibility with RunnerCore.
 
 1. Implement feature in corresponding module
 2. Update RunnerCore (if integration needed)
-3. Update CLI/plugin parameters (random_runner.py, pytest_random_runner.py)
+3. Update CLI/plugin parameters (random_runner.py, pytest_monkey.py)
 4. Write unit tests
 5. Update README.md
 

@@ -137,7 +137,7 @@ pytest-monkey/
 │   ├── executor.py   # Test executor
 │   ├── reporter.py   # Report generator
 │   └── models.py     # Data models
-├── pytest_random_runner.py  # pytest plugin entry
+├── pytest_monkey.py          # pytest plugin entry
 ├── random_runner.py         # CLI entry
 └── tests/                   # Test files
 ```
