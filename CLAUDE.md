@@ -1,27 +1,27 @@
-# Claude Code 配置
+# Claude Code Configuration
 
-本项目为 pytest 随机测试运行器插件。
+This project is a pytest random test runner plugin.
 
-## 项目指南
+## Project Guide
 
-详细开发规范和项目结构请参阅 [AGENTS.md](AGENTS.md)。
+For detailed development guidelines and project structure, see [AGENTS.md](AGENTS.md).
 
-## 快速命令
+## Quick Commands
 
 ```bash
-# 运行测试
+# Run tests
 pytest tests/
 
-# 运行随机测试 (CLI)
+# Run random tests (CLI)
 python random_runner.py tests/ --count 10
 
-# 运行随机测试 (pytest插件)
+# Run random tests (pytest plugin)
 pytest tests/ --random-runner --random-count 10
 ```
 
-## 关键文件
+## Key Files
 
-- `runner/core.py` - 核心运行器
-- `pytest_random_runner.py` - pytest 插件入口
-- `random_runner.py` - CLI 入口
-- `tests/test_runner/` - 单元测试
+- `runner/core.py` - Core runner
+- `pytest_random_runner.py` - pytest plugin entry
+- `random_runner.py` - CLI entry
+- `tests/test_runner/` - Unit tests

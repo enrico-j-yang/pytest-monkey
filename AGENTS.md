@@ -1,98 +1,98 @@
-# Agent 配置指南
+# Agent Configuration Guide
 
-本文档为 AI 助手提供 pytest-monkey 项目的工作指南。
+This document provides working guidelines for AI assistants on the pytest-monkey project.
 
-## 项目概述
+## Project Overview
 
-pytest-monkey 是一个 pytest 插件和 CLI 工具，用于随机顺序多次执行测试。核心功能：
+pytest-monkey is a pytest plugin and CLI tool for running tests multiple times in random order. Core features:
 
-- 从测试集合中随机选择测试多次运行
-- 通过 seed 参数保证测试顺序可复现
-- 自动生成 JSON/HTML 测试报告
+- Randomly select and run tests multiple times from a test collection
+- Ensure test order reproducibility via seed parameter
+- Automatically generate JSON/HTML test reports
 
-## 技术栈
+## Tech Stack
 
 - Python 3.12
-- pytest (测试框架)
-- tqdm (进度条)
-- PDM (包管理)
+- pytest (test framework)
+- tqdm (progress bar)
+- PDM (package management)
 
-## 项目结构
+## Project Structure
 
 ```
 pytest-monkey/
-├── runner/               # 核心模块
-│   ├── core.py          # RunnerCore - 整合所有组件
-│   ├── collector.py     # TestCollector - 收集pytest测试项
-│   ├── selector.py      # RandomSelector - 随机选择测试
-│   ├── executor.py      # TestExecutor - 执行单个测试
-│   ├── reporter.py      # ResultReporter - 生成报告
-│   └── models.py        # 数据模型 (TestResult, RunReport)
-├── pytest_random_runner.py  # pytest插件入口
-├── random_runner.py         # CLI入口
-├── tests/                   # 测试目录
-└── reports/                 # 报告输出目录 (运行时生成)
+├── runner/               # Core module
+│   ├── core.py          # RunnerCore - integrates all components
+│   ├── collector.py     # TestCollector - collects pytest test items
+│   ├── selector.py      # RandomSelector - randomly selects tests
+│   ├── executor.py      # TestExecutor - executes single tests
+│   ├── reporter.py      # ResultReporter - generates reports
+│   └── models.py        # Data models (TestResult, RunReport)
+├── pytest_random_runner.py  # pytest plugin entry
+├── random_runner.py         # CLI entry
+├── tests/                   # Test directory
+└── reports/                 # Report output directory (generated at runtime)
 ```
 
-## 开发规范
+## Development Guidelines
 
-### 编码风格
+### Coding Style
 
-- 使用中文注释和文档字符串 (reporter.py, selector.py 等已有示例)
-- 使用 dataclass 定义数据模型
-- 函数和类添加类型注解
-- 保持模块职责单一
+- Use English comments and docstrings
+- Use dataclass for data model definitions
+- Add type annotations to functions and classes
+- Keep module responsibilities single and focused
 
-### 测试要求
+### Testing Requirements
 
-- 所有新功能必须有对应的单元测试
-- 测试文件放在 `tests/test_runner/` 目录
-- 使用 pytest 编写测试
-- 运行测试: `pytest tests/`
+- All new features must have corresponding unit tests
+- Test files go in `tests/test_runner/` directory
+- Write tests using pytest
+- Run tests: `pytest tests/`
 
-### 代码质量检查
+### Code Quality Checks
 
-**必须执行的规则**: 每次修改 pytest 脚本后，执行以下 pylint 检查命令:
+**Mandatory Rule**: After modifying pytest scripts, run the following pylint check:
 
 ```bash
 pylint --rcfile=.pylintrc --output-format=parseable --disable=R -rn .
 ```
 
-修复所有 pylint 报告的错误，直到评分达到 10 分。
+Fix all errors reported by pylint until the score reaches 10.
 
-### 核心组件交互
+### Core Component Interaction
 
-RunnerCore 是核心协调器，按以下顺序工作:
+RunnerCore is the central coordinator, working in this order:
 
-1. TestCollector.collect() → 收集测试项
-2. RandomSelector.select() → 选择随机序列
-3. TestExecutor.execute() → 执行每个测试
-4. ResultReporter → 记录结果、生成报告
+1. TestCollector.collect() → Collect test items
+2. RandomSelector.select() → Select random sequence
+3. TestExecutor.execute() → Execute each test
+4. ResultReporter → Record results, generate report
 
-修改任何组件时，确保与 RunnerCore 的接口兼容。
+When modifying any component, ensure interface compatibility with RunnerCore.
 
-## 常见任务
+## Common Tasks
 
-### 添加新功能
+### Adding New Features
 
-1. 在对应模块中实现功能
-2. 更新 RunnerCore (如果需要集成)
-3. 更新 CLI/插件参数 (random_runner.py, pytest_random_runner.py)
-4. 编写单元测试
-5. 更新 README.md
+1. Implement feature in corresponding module
+2. Update RunnerCore (if integration needed)
+3. Update CLI/plugin parameters (random_runner.py, pytest_random_runner.py)
+4. Write unit tests
+5. Update README.md
 
-### 修改报告格式
+### Modifying Report Format
 
-- 修改 `runner/reporter.py` 中的 `generate_html()` 或 `generate_json()`
-- 确保数据来自 `runner/models.py` 的 RunReport
+- Modify `generate_html()` or `generate_json()` in `runner/reporter.py`
+- Ensure data comes from `RunReport` in `runner/models.py`
 
-### 添加新的选择策略
+### Adding New Selection Strategies
 
-- 在 `runner/selector.py` 中扩展 RandomSelector
-- 或创建新的选择器类，在 RunnerCore 中替换
+- Extend RandomSelector in `runner/selector.py`
+- Or create new selector class, replace in RunnerCore
 
-## 注意事项
+## Notes
 
-- 测试执行使用 pytest.main() 内部机制，确保测试上下文正确
-- 随机种子默认生成 10 位数字，便于复现
-- 报告目录默认为 `./reports`，运行前会自动创建
+- Test execution uses pytest.main() internal mechanism, ensure correct test context
+- Random seed defaults to 10-digit number for easy reproduction
+- Report directory defaults to `./reports`, auto-created before running
