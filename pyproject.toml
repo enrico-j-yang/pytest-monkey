@@ -7,7 +7,7 @@ name = "pytest-monkey"
 version = "0.1.0"
 description = "pytest plugin for random test runner with reproducible execution"
 authors = [
-    {name = "杨俊", email = "junyang@listenai.com"},
+    {name = "Enrico Yang", email = "jackie826@163.com"},
 ]
 dependencies = [
     "tqdm~=4.67.1",
@@ -24,10 +24,10 @@ readme = "README.md"
 license = "MIT"
 
 [project.entry-points.pytest11]
-random_runner = "pytest_random_runner"
+monkey = "pytest_monkey"
 
 [tool.setuptools]
-py-modules = ["pytest_random_runner", "random_runner"]
+py-modules = ["pytest_monkey", "random_runner"]
 
 [tool.setuptools.packages.find]
 include = ["runner*"]

@@ -22,6 +22,6 @@ pytest tests/ --random-runner --random-count 10
 ## Key Files
 
 - `runner/core.py` - Core runner
-- `pytest_random_runner.py` - pytest plugin entry
+- `pytest_monkey.py` - pytest plugin entry
 - `random_runner.py` - CLI entry
 - `tests/test_runner/` - Unit tests
