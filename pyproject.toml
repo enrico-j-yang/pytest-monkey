@@ -9,6 +9,13 @@ description = "pytest plugin for random test runner with reproducible execution"
 authors = [
     {name = "Enrico Yang", email = "jackie826@163.com"},
 ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
 dependencies = [
     "tqdm~=4.67.1",
     "pytest>=7.4.0",
