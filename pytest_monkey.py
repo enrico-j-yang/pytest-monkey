@@ -94,9 +94,10 @@ def pytest_collection_modifyitems(
 
 def pytest_sessionfinish(
     session: pytest.Session,
-    _exitstatus: int
+    exitstatus: int
 ) -> None:
     """Set the final exit status after session ends."""
+    del exitstatus  # Hook arg is unused; final status comes from our runner.
     config = session.config
     if hasattr(config, "_random_runner_exit_code"):  # pylint: disable=protected-access
         # Use the exit code from our random runner

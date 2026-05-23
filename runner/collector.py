@@ -80,7 +80,7 @@ class TestCollector:
 
         class CollectionPlugin:
             """Plugin to capture collected items"""
-            def pytest_collection_modifyitems(self, _config, items):
+            def pytest_collection_modifyitems(self, items):
                 collected_items.extend(items)
 
         try:
