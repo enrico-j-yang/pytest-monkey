@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pytest-monkey"
-version = "0.1.0"
+version = "0.1.1"
 description = "pytest plugin for random test runner with reproducible execution"
 authors = [
     {name = "Enrico Yang", email = "jackie826@163.com"},
@@ -32,6 +32,9 @@ license = "MIT"
 
 [project.entry-points.pytest11]
 monkey = "pytest_monkey"
+
+[project.scripts]
+pytest-monkey = "random_runner:main"
 
 [tool.setuptools]
 py-modules = ["pytest_monkey", "random_runner"]

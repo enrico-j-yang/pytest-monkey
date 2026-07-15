@@ -45,23 +45,23 @@ pytest tests/ --random-runner --random-count 100 --random-no-capture
 
 ### 2. As CLI Tool
 
-Run `random_runner.py` directly:
+Use the installed `pytest-monkey` command:
 
 ```bash
 # Run 100 random tests from directory
-python random_runner.py tests/ --count 100
+pytest-monkey tests/ --count 100
 
 # Run 50 tests from single file
-python random_runner.py tests/test_file.py --count 50
+pytest-monkey tests/test_file.py --count 50
 
 # Specify test method and set seed
-python random_runner.py tests/test_file.py::test_name --count 20 --seed 42
+pytest-monkey tests/test_file.py::test_name --count 20 --seed 42
 
 # Continue on failure, verbose output
-python random_runner.py tests/ --count 100 --continue-on-fail -v
+pytest-monkey tests/ --count 100 --continue-on-fail -v
 
 # Show test output (similar to pytest -s)
-python random_runner.py tests/ --count 100 -s
+pytest-monkey tests/ --count 100 -s
 ```
 
 ## Parameter Reference
@@ -112,7 +112,7 @@ Random seed: 1234567890
 Use the same seed to reproduce the same test order:
 
 ```bash
-python random_runner.py tests/ --count 100 --seed 1234567890
+pytest-monkey tests/ --count 100 --seed 1234567890
 ```
 
 ## Test Selection Syntax
