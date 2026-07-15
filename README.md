@@ -60,8 +60,8 @@ pytest-monkey tests/test_file.py::test_name --count 20 --seed 42
 # Continue on failure, verbose output
 pytest-monkey tests/ --count 100 --continue-on-fail -v
 
-# Show test output (similar to pytest -s)
-pytest-monkey tests/ --count 100 -s
+# Test names and stdout/stderr are shown by default (equivalent to pytest -v -s)
+pytest-monkey tests/ --count 100
 ```
 
 ## Parameter Reference
@@ -85,8 +85,8 @@ pytest-monkey tests/ --count 100 -s
 | `--seed` | Random seed (auto-generated 10-digit number by default) |
 | `--continue-on-fail` | Continue execution on failure |
 | `--report-dir` | Report save directory (default ./reports) |
-| `-v, --verbose` | Verbose output mode |
-| `-s, --no-capture` | Disable output capture |
+| `-v, --verbose` | Show verbose run results (enabled by default) |
+| `-s, --no-capture` | Show test stdout/stderr without capture (enabled by default) |
 
 ## Test Reports
 

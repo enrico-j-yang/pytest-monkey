@@ -73,7 +73,10 @@ class TestExecutor:
         try:
             # Run the test using pytest.main with the item's nodeid
             # This ensures proper pytest session context for execution
-            pytest_args = ['-v', '--tb=short', item.nodeid]
+            pytest_args = ['-v', '--tb=short']
+            if not self.capture_output:
+                pytest_args.append('-s')
+            pytest_args.append(item.nodeid)
             pytest.main(
                 pytest_args,
                 plugins=[plugin]

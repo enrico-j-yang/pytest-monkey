@@ -1,4 +1,6 @@
 """Tests for TestExecutor"""
+from unittest.mock import patch
+
 import pytest
 from runner.collector import TestCollector
 from runner.executor import TestExecutor
@@ -99,3 +101,16 @@ class TestTestExecutor:
         # Verify test_name is the nodeid
         assert result.test_name == item.nodeid
         assert "test_sample_pass_1" in result.test_name
+
+    def test_execute_without_capture_passes_pytest_no_capture_option(
+            self, collector, sample_tests_path):
+        """Test that visible execution passes -v and -s to pytest."""
+        item = collector.collect(f"{sample_tests_path}::test_sample_pass_1")[0]
+        executor = TestExecutor(capture_output=False)
+
+        with patch("runner.executor.pytest.main") as pytest_main:
+            executor.execute(item)
+
+        pytest_args = pytest_main.call_args.args[0]
+        assert "-v" in pytest_args
+        assert "-s" in pytest_args

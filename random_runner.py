@@ -54,13 +54,15 @@ Examples:
     parser.add_argument(
         "-v", "--verbose",
         action="store_true",
-        help="Enable verbose output"
+        default=True,
+        help="Show verbose test results (enabled by default)"
     )
 
     parser.add_argument(
         "-s", "--no-capture",
         action="store_true",
-        help="Disable output capture (show stdout/stderr during test execution, like pytest -s)"
+        default=True,
+        help="Show test output without capture (enabled by default)"
     )
 
     return parser.parse_args()
